@@ -17,7 +17,7 @@ const Home = () => {
       <Header />
 
       <div className="bg-black">
-        <ReactPlayer
+        {/* <ReactPlayer
         url="image/SquidGame.mp4"
         controls={false}
         playing={true}
@@ -25,7 +25,7 @@ const Home = () => {
         muted={true}
         width={"100%"}
         height={"100%"}
-      />
+      /> */}
 
         {/* <Player src="image/SquidGame.mp4" style={{ "z-index": -1 }} /> */}
 

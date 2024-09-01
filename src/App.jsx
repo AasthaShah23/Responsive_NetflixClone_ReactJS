@@ -9,18 +9,22 @@ import MoviePage from "./Components/AfterLogin/MoviePage";
 import MovieCard from "./Components/AfterLogin/MovieCard";
 
 import { Player } from "@remotion/player";
+import SignUp from "./Components/BeforeSignIn/SignUp";
+import Layout from "./Layout";
 // import MyVideo from "./Components/MyVideo";
 
 function App() {
   return (
     <>
-      <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<Banner />} />
-          <Route path="signin" element={<SignIn />} />
-          <Route path="home" element={<Home />} />
-        </Routes>
-      </BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Banner />} />
+        <Route path="signin" element={<SignIn />} />
+
+        <Route path="signup" element={<SignUp />} />
+        <Route path="/home" element={<Layout />}>
+          <Route path="" element={<Home />} />
+        </Route>
+      </Routes>
 
       {/* <Player
         // component={MyVideo}

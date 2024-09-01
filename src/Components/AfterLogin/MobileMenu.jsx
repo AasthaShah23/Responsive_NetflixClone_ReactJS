@@ -5,7 +5,7 @@ const MobileMenu = ({ visible }) => {
     return null;
   }
   return (
-    <div className="bg-black w-56 absolute top-16 left-8 py-5 flex-col border-2 border-gray-800">
+    <div className="bg-black w-56 z-50 absolute top-16 left-8 py-5 flex-col border-2 border-gray-800">
       <div className="flex flex-col gap-4">
         <div className="px-3 text-center text-white">
             <ul>

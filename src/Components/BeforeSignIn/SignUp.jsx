@@ -1,30 +1,43 @@
 import React, { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import Box from "@mui/joy/Box";
 import Checkbox from "@mui/joy/Checkbox";
 import { useDispatch, useSelector } from 'react-redux';
-import { userLogin } from "../../redux/slice/authUsers";
+import { userSignup } from "../../redux/slice/authUsers";
 import { ToastContainer, toast } from 'react-toastify';
 
-const SignIn = () => {
+const SignUp = () => {
 
   const dispatch = useDispatch();
     const { users, loading, error } = useSelector((state) => state.users);
     console.log(users);
 
-    const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setpassword] = useState("");
+  const [firstname, setFirstName] = useState("");
+  const [lastname, setLastName] = useState("");
 
-  const handleLogin = async () => {
+  const handleSignup = async () => {
+
     try {
-      const result = await dispatch(userLogin({email, password})).unwrap(); // Unwrap to handle promise
-      console.log('Login successful:', result);
-      // setAuthenticated(true);
+      const result = await dispatch(userSignup({firstname, lastname, email, password})).unwrap(); // Unwrap to handle promise
+      console.log('SignUp successful:', result);
+   
+      setFirstName('');
+      setLastName('');
+      setEmail('');
+      setpassword('');
       toast.success(result.message);
-      navigate('/home');
   } catch (err) {
-      toast.error('Login failed. Please try again.');
+      if (err && err.message) {
+        toast.error(`Signup failed: ${err.message}`);
+      } else {
+        toast.error('Signup failed. Please try again.');
+      }
+      setFirstName('');
+      setLastName('');
+      setEmail('');
+      setpassword('');
   }
   }
 
@@ -49,8 +62,22 @@ const SignIn = () => {
               <h1 className="text-white font-bold text-[35px] mb-7">Sign In</h1>
             </div>
 
-            <div className="flex flex-col w-[314px]">
-              {/* <form action="#" className="flex flex-col w-[314px]"> */}
+            <div className="flex flex-col gap-5 w-[314px]">
+              {/* <form action="#" className="flex flex-col gap-5 w-[314px]"> */}
+              <input
+                  type="text"
+                  className="rounded text-white border-[#ccc] bg-[rgba(0,0,0,0.4)] border-2 border-[rgba(255,255,255,0.3)] h-12 pl-3 py-6"
+                  placeholder="firstname"
+                  value={firstname}
+                  onChange={(e) => setFirstName(e.target.value)}
+                />
+                  <input
+                  type="text"
+                  className="rounded text-white border-[#ccc] bg-[rgba(0,0,0,0.4)] border-2 border-[rgba(255,255,255,0.3)] h-12 pl-3 py-6"
+                  placeholder="lastname"
+                  value={lastname}
+                  onChange={(e) => setLastName(e.target.value)}
+                />
                 <input
                   type="text"
                   className="rounded text-white border-[#ccc] bg-[rgba(0,0,0,0.4)] border-2 border-[rgba(255,255,255,0.3)] h-12 pl-3 py-6"
@@ -60,19 +87,19 @@ const SignIn = () => {
                 />
                 <input
                   type="password"
-                  className="rounded text-white border-[#ccc] bg-[rgba(0,0,0,0.4)] border-2 border-[rgba(255,255,255,0.3)] h-12 pl-3 py-6 my-5"
+                  className="rounded text-white border-[#ccc] bg-[rgba(0,0,0,0.4)] border-2 border-[rgba(255,255,255,0.3)] h-12 pl-3 py-6 "
                   placeholder="Password"
                   value={password}
                   onChange={(e) => setpassword(e.target.value)}
                 />
 
-                <div
-                  to="/home"
-                  onClick={handleLogin}
+                <Link
+                  to=""
+                  onClick={handleSignup}
                   className="bg-[red] text-white rounded text-lg font-semibold py-[10px] hover:bg-[rgb(229,9,20)] duration-300 text-center"
                 >
-                  <button>Sign In</button>
-                </div>
+                  <button>Sign Up</button>
+                </Link>
               {/* </form> */}
               <p className="text-[#9b9b9b] text-center py-4 text-[17px] cursor-pointer hover:underline">
                 Forgot password?
@@ -88,9 +115,9 @@ const SignIn = () => {
               </div>
 
               <p className="mt-4 text-[rgba(255,255,255,0.7)] text-lg">
-                New to Netflix?{" "}
-                <Link to="/signup">
-                  <button className="font-bold text-white">Sign up now.</button>
+                already have an account?{" "}
+                <Link to="/signin">
+                  <button className="font-bold text-white">Login now.</button>
                 </Link>
               </p>
 
@@ -189,4 +216,4 @@ const SignIn = () => {
   );
 };
 
-export default SignIn;
+export default SignUp;

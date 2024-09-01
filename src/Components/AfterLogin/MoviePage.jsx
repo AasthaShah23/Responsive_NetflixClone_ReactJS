@@ -273,21 +273,21 @@ const MoviePage = ({ title }) => {
     const fetchData = async () => {
       setLoading(true);
       const arr = [];
-      try {
-        for (let i = 0; i < 20; i++) {
-          let randomId = `${Math.floor(Math.random() * movie_ids.length)}`;
-          const res = await axios.get(
-            `http://www.omdbapi.com/?i=${movie_ids[randomId]}&apikey=fa285224`
-          );
+      // try {
+      //   for (let i = 0; i < 20; i++) {
+      //     let randomId = `${Math.floor(Math.random() * movie_ids.length)}`;
+      //     const res = await axios.get(
+      //       `http://www.omdbapi.com/?i=${movie_ids[randomId]}&apikey=fa285224`
+      //     );
 
-          arr.push(res.data);
-          setDataa(arr);
-        }
-        setLoading(false);
-      } catch (error) {
-        alert(error.message);
-        setLoading(false);
-      }
+      //     arr.push(res.data);
+      //     setDataa(arr);
+      //   }
+      //   setLoading(false);
+      // } catch (error) {
+      //   alert(error.message);
+      //   setLoading(false);
+      // }
     };
     fetchData();
   }, []);
